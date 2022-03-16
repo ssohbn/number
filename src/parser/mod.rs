@@ -10,12 +10,12 @@ pub fn parse_arg() -> i32 {
 }
 
 ///creates string of Numba struct from a number
-fn assign_placeholders(input_number: i32) -> Vec<Numba> {
+pub fn assign_placeholders(input_number: i32) -> Vec<Numba> {
   let mut numbas: Vec<Numba> = vec![];
   let zeroes = 0;
   while input_number != 0 {
     numbas.push(
-      Numba::new(value(input_number%10), number_to_placeholder(zeroes)),
+      Numba::new(   value(input_number%10), number_to_placeholder(zeroes) ),
     );
   }
   numbas
@@ -23,10 +23,10 @@ fn assign_placeholders(input_number: i32) -> Vec<Numba> {
 
 fn zeros_amount(val: i32) -> i32 {
   let mut zero_count: i32 = 0;
-  while val > 0 {
-    val /= 10;
-    zero_count+=10;
-  }
+  // while val > 0 {
+  //   val /= 10;
+  //   zero_count+=10;
+  // }
   zero_count
 }
 

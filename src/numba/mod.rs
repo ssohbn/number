@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub enum ValuePlaceholder {
   Zero,
   One,
@@ -11,6 +12,7 @@ pub enum ValuePlaceholder {
   Nine,
 }
 
+#[derive(Debug)]
 pub enum DigitsPlaceholder {
   Ones,
   Tens,
@@ -21,6 +23,7 @@ pub enum DigitsPlaceholder {
   Millions,
 }
 
+#[derive(Debug)]
 pub struct Numba {
   value: ValuePlaceholder,
   place: DigitsPlaceholder,
