@@ -1,3 +1,5 @@
+mod tests;
+
 use crate::numba::{self, ValuePlaceholder, DigitsPlaceholder, Numba};
 use std::env;
 
@@ -22,11 +24,12 @@ pub fn assign_placeholders(input_number: i32) -> Vec<Numba> {
 }
 
 fn zeros_amount(val: i32) -> i32 {
+	let mut val = val.abs();
   let mut zero_count: i32 = 0;
-  // while val > 0 {
-  //   val /= 10;
-  //   zero_count+=10;
-  // }
+  while val > 10 {
+    val /= 10;
+    zero_count+=1;
+  }
   zero_count
 }
 
@@ -58,6 +61,6 @@ pub fn value(digit: i32)-> ValuePlaceholder {
     2 => ValuePlaceholder::Two,
     1 => ValuePlaceholder::One,
     0 => ValuePlaceholder::Zero,
-    _ => panic!("Program cant handle this number"),      
+    _ => panic!("Program cant handle this number"),     
   }
 }
