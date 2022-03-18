@@ -64,3 +64,19 @@ pub fn value(digit: i32)-> ValuePlaceholder {
     _ => panic!("Program cant handle this number"),     
   }
 }
+
+fn verify_numbas(numbas: &Vec<Numba>) {
+  for (index, numba) in numbas.iter().enumerate() {
+    println!("index: {}\nvalue:{}", index, numba.get_as_i32());
+  }
+}
+
+
+fn parse_to_i32( numbas: &Vec<Numba> ) -> i32 {
+  let mut value = 0;
+  for numba in numbas {
+    value += numba.get_as_i32();
+  }
+
+  value
+}
