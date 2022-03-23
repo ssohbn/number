@@ -15,10 +15,10 @@ fn test_zeros_amount() {
 
 #[test]
 fn test_number_to_placeholder() {
-	assert!(matches!(number_to_placeholder(3), DigitsPlaceholder::Thousands));
-	assert!(matches!(number_to_placeholder(4), DigitsPlaceholder::TenThousands));
-	assert!(matches!(number_to_placeholder(1), DigitsPlaceholder::Tens));
-	assert!(matches!(number_to_placeholder(00_001), DigitsPlaceholder::Tens));
+	assert!(matches!(number_to_placeholder(3), DigitsPlaceholder::Hundreds));
+	assert!(matches!(number_to_placeholder(4), DigitsPlaceholder::Thousands));
+	assert!(matches!(number_to_placeholder(1), DigitsPlaceholder::Ones));
+	assert!(matches!(number_to_placeholder(00_001), DigitsPlaceholder::Ones));
 }
 
 #[test]
@@ -36,7 +36,7 @@ fn test_value_panic() {
 #[test]
 #[should_panic]
 fn test_number_to_placeholder_panic() {
-	number_to_placeholder(7);
+	number_to_placeholder(8);
 }
 
 #[test]
@@ -47,11 +47,21 @@ fn test_parse_to_i32() {
 }
 
 #[test]
-fn test_verify_numbas() {
-	verify_numbas(&vec![
+fn test_verify_numbas_order() {
+	verify_numbas_order(&vec![
 		Numba::new(ValuePlaceholder::One, DigitsPlaceholder::Ones),
 		Numba::new(ValuePlaceholder::One, DigitsPlaceholder::Tens),
 		Numba::new(ValuePlaceholder::One, DigitsPlaceholder::Hundreds),
 	]);
-	panic!("panic panic panic panic panic");
+	// ordered properly
+}
+
+#[test]
+#[should_panic]
+fn test_verify_numbas_order_panic() {
+	verify_numbas_order(
+		&vec![
+			Numba::new(ValuePlaceholder::One, DigitsPlaceholder::Tens)
+		]
+	);
 }

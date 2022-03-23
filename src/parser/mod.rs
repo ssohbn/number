@@ -36,15 +36,15 @@ fn zeros_amount(val: i32) -> i32 {
 /// finds a nice placeholder for a given amount of zeroes
 ///#eg
 ///1000000 -> 6 zeros -> DigitsPlaceholder::Millions
-pub fn number_to_placeholder(zeroes: i32) -> DigitsPlaceholder {
-  match zeroes {
-    0 => DigitsPlaceholder::Ones,
-    1 => DigitsPlaceholder::Tens,
-    2 => DigitsPlaceholder::Hundreds,
-    3 => DigitsPlaceholder::Thousands,
-    4 => DigitsPlaceholder::TenThousands,
-    5 => DigitsPlaceholder::HundredThousands,
-    6 => DigitsPlaceholder::Millions,
+pub fn number_to_placeholder(places: i32) -> DigitsPlaceholder {
+  match places {
+    1 => DigitsPlaceholder::Ones,
+    2 => DigitsPlaceholder::Tens,
+    3 => DigitsPlaceholder::Hundreds,
+    4 => DigitsPlaceholder::Thousands,
+    5 => DigitsPlaceholder::TenThousands,
+    6 => DigitsPlaceholder::HundredThousands,
+    7 => DigitsPlaceholder::Millions,
     _ => panic!("unsupported amount of zeros"),
   }
 }
@@ -65,9 +65,12 @@ pub fn value(digit: i32)-> ValuePlaceholder {
   }
 }
 
-fn verify_numbas(numbas: &Vec<Numba>) {
+fn verify_numbas_order(numbas: &Vec<Numba>) {
+  let mut counter: usize = 0;
   for (index, numba) in numbas.iter().enumerate() {
-    println!("index: {}\nvalue:{}", index, numba.get_as_i32());
+    if !(index >= counter) {
+      panic!("improper index order on passed &Vec<Numba>\ncounter: {}\nindex: {} ", counter, index);
+    }
   }
 }
 
