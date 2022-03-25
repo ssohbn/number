@@ -66,10 +66,10 @@ pub fn value(digit: i32)-> ValuePlaceholder {
 }
 
 fn verify_numbas_order(numbas: &Vec<Numba>) {
-	let mut counter: usize = 0;
 	for (index, numba) in numbas.iter().enumerate() {
-		if !(index >= counter) {
-			panic!("improper index order on passed &Vec<Numba>\ncounter: {}\nindex: {} ", counter, index);
+		let place_index = numba.place().get_places().try_into().unwrap();
+		if index+1 != place_index {
+			panic!("improper index order on passed &Vec<Numba>\nplace_index: {}\nindex: {} ", place_index, index);
 		}
 	}
 }

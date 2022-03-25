@@ -65,3 +65,13 @@ fn test_verify_numbas_order_panic() {
 		]
 	);
 }
+
+#[test]
+#[should_panic]
+fn test_verify_numbas_order_panic_2() {
+	verify_numbas_order(
+		&vec![
+			Numba::new(ValuePlaceholder::One, DigitsPlaceholder::Hundreds)
+		]
+	);
+}

@@ -44,7 +44,7 @@ pub enum DigitsPlaceholder {
 }
 
 impl DigitsPlaceholder {
-	fn get_places(&self) -> i32 {
+	pub fn get_places(&self) -> i32 {
 		let place = match self {
 			DigitsPlaceholder::Ones => 1,
 			DigitsPlaceholder::Tens => 2,
@@ -86,6 +86,9 @@ impl Numba {
 
 		value * place
 	}
-	
+
+	pub fn place(&self) -> &DigitsPlaceholder {
+		&self.place
+	}
 }
 
