@@ -80,7 +80,7 @@ impl Numba {
 		let value = self.value.get_value();
 
 		let mut place = 1;
-		for _ in 1..self.place.get_places()+1 {
+		for _ in 1..self.place.get_places() {
 			place *= 10;
 		}
 
