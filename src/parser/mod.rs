@@ -65,6 +65,16 @@ pub fn value(digit: i32)-> ValuePlaceholder {
 	}
 }
 
+
+fn parse_to_i32( numbas: &Vec<Numba> ) -> i32 {
+	let mut value = 0;
+	for numba in numbas {
+	value += numba.get_as_i32();
+	}
+
+	value
+}
+
 fn verify_numbas_order(numbas: &Vec<Numba>) {
 	for (index, numba) in numbas.iter().enumerate() {
 		let place_index = numba.place().get_places().try_into().unwrap();
@@ -74,12 +84,40 @@ fn verify_numbas_order(numbas: &Vec<Numba>) {
 	}
 }
 
+fn text( numbas: &Vec<Numba> ) -> String {
+	verify_numbas_order(numbas)
 
-fn parse_to_i32( numbas: &Vec<Numba> ) -> i32 {
-	let mut value = 0;
-	for numba in numbas {
-	value += numba.get_as_i32();
-	}
+/*
+patterns that need to be accounted for
+one         - one ones
+two         - two ones
+three       - three ones
+four        - four ones
+five        - five ones
+six         - five ones
+seven       - seven ones
+eight       - eight ones
+nine        - nine ones
+ten         - one tens
+eleven      - one ones, one tens
+twelve      - two ones, one tens
+thirteen    - three ones, one tens
+fourteen    - four ones, one tens
+fifteen     - five ones, one tens
+sixteen
+seventeen
+eighteen
+nineteen
+twenty
+thirty
+fourty
+fifty
+sixty
+seventy
+eighty
+ninety
+one - hundred
 
-	value
+
+*/
 }

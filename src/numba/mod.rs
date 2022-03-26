@@ -90,5 +90,6 @@ impl Numba {
 	pub fn place(&self) -> &DigitsPlaceholder {
 		&self.place
 	}
+
 }
 
