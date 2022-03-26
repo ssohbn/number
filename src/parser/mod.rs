@@ -65,7 +65,6 @@ pub fn value(digit: i32)-> ValuePlaceholder {
 	}
 }
 
-
 fn parse_to_i32( numbas: &Vec<Numba> ) -> i32 {
 	let mut value = 0;
 	for numba in numbas {
@@ -75,49 +74,70 @@ fn parse_to_i32( numbas: &Vec<Numba> ) -> i32 {
 	value
 }
 
-fn verify_numbas_order(numbas: &Vec<Numba>) {
+fn verify_numbas_order(numbas: &Vec<Numba>) -> bool {
 	for (index, numba) in numbas.iter().enumerate() {
 		let place_index = numba.place().get_place().try_into().unwrap();
 		if index+1 != place_index {
 			panic!("improper index order on passed &Vec<Numba>\nplace_index: {}\nindex: {} ", place_index, index);
 		}
 	}
+	true
 }
 
-// fn text( numbas: &Vec<Numba> ) -> String {
-// 	verify_numbas_order(numbas)
+/// # Examples
+/// ```
+/// use numba::numba::{Numba, ValuePlaceholder, DigitsPlaceholder};
+/// use numba::parser;
+/// let numba = Numba::new(ValuePlaceholder::Nine, DigitsPlaceholder::Ones);
+/// let numba2 = Numba::new(ValuePlaceholder::Nine, DigitsPlaceholder::Tens);
+/// 
+/// assert_eq!(parser::text(&vec![numba, numba2]), "nine-ones nine-tens");
+/// ```
+/// 
+pub fn text( numbas: &Vec<Numba> ) -> String {
+	if !verify_numbas_order(numbas) {
+		panic!("numbas are not in proper order");
+	}
+	let mut text = String::new();
+	for numba in numbas {
+		text += &format!(" {}", &numba.text());
+	}
+	text.trim().to_string()
 
-/*
-patterns that need to be accounted for
-one         - one ones
-two         - two ones
-three       - three ones
-four        - four ones
-five        - five ones
-six         - five ones
-seven       - seven ones
-eight       - eight ones
-nine        - nine ones
-ten         - one tens
-eleven      - one ones, one tens
-twelve      - two ones, one tens
-thirteen    - three ones, one tens
-fourteen    - four ones, one tens
-fifteen     - five ones, one tens
-sixteen
-seventeen
-eighteen
-nineteen
-twenty
-thirty
-fourty
-fifty
-sixty
-seventy
-eighty
-ninety
-one - hundred
-
-
-*/
-// }
+	/*
+	patterns that need to be accounted for
+	one         - one ones
+	two         - two ones
+	three       - three ones
+	four        - four ones
+	five        - five ones
+	six         - five ones
+	seven       - seven ones
+	eight       - eight ones
+	nine        - nine ones
+	ten         - one tens
+	eleven      - one ones, one tens
+	twelve      - two ones, one tens
+	thirteen    - three ones, one tens
+	fourteen    - four ones, one tens
+	fifteen     - five ones, one tens
+	sixteen
+	seventeen
+	eighteen
+	nineteen
+	twenty
+	thirty
+	fourty
+	fifty
+	sixty
+	seventy
+	eighty
+	ninety
+	one - hundred
+	one - thousand
+	ten - thousand
+	twenty - thousand
+	hundred - thousand
+	one - million
+	*/
+}

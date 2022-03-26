@@ -38,6 +38,22 @@ impl ValuePlaceholder {
 		};
 		value
 	}
+
+	pub fn text(&self) -> String {
+		let value = match self {
+			ValuePlaceholder::Zero => "zero",
+			ValuePlaceholder::One => "one",
+			ValuePlaceholder::Two => "two",
+			ValuePlaceholder::Three => "three",
+			ValuePlaceholder::Four => "four",
+			ValuePlaceholder::Five => "five",
+			ValuePlaceholder::Six => "six",
+			ValuePlaceholder::Seven => "seven",
+			ValuePlaceholder::Eight => "eight",
+			ValuePlaceholder::Nine => "nine",
+		};
+		value.to_string()
+	}
 }
 
 /// All types of places for each digit
@@ -71,6 +87,17 @@ impl DigitsPlaceholder {
 			DigitsPlaceholder::Millions => 7,
 		};	
 		place
+	}
+	pub fn text(&self) -> String {
+		match self {
+			DigitsPlaceholder::Ones => "ones".to_string(),
+			DigitsPlaceholder::Tens => "tens".to_string(),
+			DigitsPlaceholder::Hundreds => "hundreds".to_string(),
+			DigitsPlaceholder::Thousands => "thousands".to_string(),
+			DigitsPlaceholder::TenThousands => "ten thousands".to_string(),
+			DigitsPlaceholder::HundredThousands => "hundred thousands".to_string(),
+			DigitsPlaceholder::Millions => "millions".to_string(),
+		}
 	}
 }
 
@@ -124,6 +151,10 @@ impl Numba {
 
 	pub fn place(&self) -> &DigitsPlaceholder {
 		&self.place
+	}
+
+	pub fn text(&self) -> String {
+		format!("{}-{}", self.value.text(), self.place.text())
 	}
 
 }
