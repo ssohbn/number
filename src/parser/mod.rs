@@ -77,15 +77,15 @@ fn parse_to_i32( numbas: &Vec<Numba> ) -> i32 {
 
 fn verify_numbas_order(numbas: &Vec<Numba>) {
 	for (index, numba) in numbas.iter().enumerate() {
-		let place_index = numba.place().get_places().try_into().unwrap();
+		let place_index = numba.place().get_place().try_into().unwrap();
 		if index+1 != place_index {
 			panic!("improper index order on passed &Vec<Numba>\nplace_index: {}\nindex: {} ", place_index, index);
 		}
 	}
 }
 
-fn text( numbas: &Vec<Numba> ) -> String {
-	verify_numbas_order(numbas)
+// fn text( numbas: &Vec<Numba> ) -> String {
+// 	verify_numbas_order(numbas)
 
 /*
 patterns that need to be accounted for
@@ -120,4 +120,4 @@ one - hundred
 
 
 */
-}
+// }

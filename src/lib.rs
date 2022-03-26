@@ -1,5 +1,5 @@
-mod parser;
-mod numba;
+pub mod parser;
+pub mod numba;
 
 #[cfg(test)]
 mod tests {
