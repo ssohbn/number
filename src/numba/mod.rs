@@ -1,5 +1,13 @@
 mod tests;
 
+/// All types of values for a digit
+/// # Examples
+/// ```
+/// use numba::numba::{Numba, ValuePlaceholder, DigitsPlaceholder};
+/// let nine = ValuePlaceholder::Nine;
+/// let hundreds = DigitsPlaceholder::Hundreds;
+/// let numba = Numba::new(nine, hundreds);
+/// ```
 #[derive(Debug)]
 pub enum ValuePlaceholder {
   Zero,
@@ -13,6 +21,7 @@ pub enum ValuePlaceholder {
   Eight,
   Nine,
 }
+
 impl ValuePlaceholder {
 	fn get_value(&self) -> i32 {
 		let value = match self {
@@ -31,7 +40,14 @@ impl ValuePlaceholder {
 	}
 }
 
-
+/// All types of places for each digit
+/// # Examples
+/// ```
+/// use numba::numba::{Numba, ValuePlaceholder, DigitsPlaceholder};
+/// let nine = ValuePlaceholder::Nine;
+/// let hundreds = DigitsPlaceholder::Hundreds;
+/// let numba = Numba::new(nine, hundreds);
+/// ```
 #[derive(Debug)]
 pub enum DigitsPlaceholder {
   Ones,
@@ -58,13 +74,7 @@ impl DigitsPlaceholder {
 	}
 }
 
-
-/// Numba struct
-/// Contains the number of digits and the value of the number
-/// as well as the place of the number in the number of digits
-/// (ones, tens, hundreds, thousands, ten thousands, hundred thousands, millions)
-/// and the value of the number in that place
-/// (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+/// Contains the value and place of a number
 /// 
 /// # Examples
 /// ```
