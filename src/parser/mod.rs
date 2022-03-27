@@ -13,24 +13,28 @@ pub fn parse_arg() -> i32 {
 
 ///creates string of Numba struct from a number
 pub fn assign_placeholders(input_number: i32) -> Vec<Numba> {
-	let mut numbas: Vec<Numba> = vec![];
-	let zeroes = 0;
+	let mut numbas: Vec<Numba> = vec![Numba::new(ValuePlaceholder::Zero, DigitsPlaceholder::Ones)];
+	let mut input_number = input_number;
+	let mut places = 1;
 	while input_number != 0 {
-	numbas.push(
-		Numba::new(   value(input_number%10), number_to_placeholder(zeroes) ),
-	);
+		numbas.push(
+			Numba::new(   value(input_number%10), number_to_placeholder(places) ),
+		);
+		input_number /= 10;
+		places+= 1
 	}
 	numbas
 }
 
-fn zeros_amount(val: i32) -> i32 {
+fn places_amount(val: i32) -> i32 {
 	let mut val = val.abs();
-	let mut zero_count: i32 = 0;
-	while val > 10 {
-	val /= 10;
-	zero_count+=1;
+	let mut places_count: i32 = 1;
+	while val > 1 {
+		val /= 10;
+		places_count+=1;
 	}
-	zero_count
+	println!("{}", places_count);
+	places_count	
 }
 
 /// finds a nice placeholder for a given amount of zeroes
@@ -38,14 +42,14 @@ fn zeros_amount(val: i32) -> i32 {
 ///1000000 -> 6 zeros -> DigitsPlaceholder::Millions
 pub fn number_to_placeholder(places: i32) -> DigitsPlaceholder {
 	match places {
-	1 => DigitsPlaceholder::Ones,
-	2 => DigitsPlaceholder::Tens,
-	3 => DigitsPlaceholder::Hundreds,
-	4 => DigitsPlaceholder::Thousands,
-	5 => DigitsPlaceholder::TenThousands,
-	6 => DigitsPlaceholder::HundredThousands,
-	7 => DigitsPlaceholder::Millions,
-	_ => panic!("unsupported amount of zeros"),
+		1 => DigitsPlaceholder::Ones,
+		2 => DigitsPlaceholder::Tens,
+		3 => DigitsPlaceholder::Hundreds,
+		4 => DigitsPlaceholder::Thousands,
+		5 => DigitsPlaceholder::TenThousands,
+		6 => DigitsPlaceholder::HundredThousands,
+		7 => DigitsPlaceholder::Millions,
+		_ => panic!("unsupported amount of zeros"),
 	}
 }
 
@@ -75,9 +79,15 @@ fn parse_to_i32( numbas: &Vec<Numba> ) -> i32 {
 }
 
 fn verify_numbas_order(numbas: &Vec<Numba>) -> bool {
+
+	// i gotta fix the usize and i32 thingys in here
+	// converting them is all fucked and it makes sense too
+	// i just dont know how to convert them rn
+
 	for (index, numba) in numbas.iter().enumerate() {
-		let place_index = numba.place().get_place().try_into().unwrap();
-		if index+1 != place_index {
+		let index: u32 = index.try_into().unwrap();
+		let place_index: i32 = numba.place().get_place();
+		if index != place_index.try_into().unwrap() {
 			panic!("improper index order on passed &Vec<Numba>\nplace_index: {}\nindex: {} ", place_index, index);
 		}
 	}
